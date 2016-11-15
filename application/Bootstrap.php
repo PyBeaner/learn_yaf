@@ -50,4 +50,5 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
         $config = new Yaf_Config_Ini(APP_PATH.'/conf/routes.ini');
         $router->addConfig($config);
     }
+
 }
