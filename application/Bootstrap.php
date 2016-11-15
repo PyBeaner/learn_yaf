@@ -7,6 +7,12 @@
  */
 class Bootstrap extends Yaf_Bootstrap_Abstract
 {
+    // 引入helpers快捷方法
+    public function _init_helpers()
+    {
+        require_once APP_PATH . '/application/helpers.php';
+    }
+
     /**
      * 将配置信息加入注册表
      */

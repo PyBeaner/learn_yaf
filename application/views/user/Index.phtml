@@ -1,5 +1,5 @@
 <?php require(__DIR__ . '/../base.html') ?>
-<table class="easyui-datagrid" url="/user/users" style="width:520px;height:250px">
+<table class="easyui-datagrid" id="dg" url="/user/users" style="width:520px;height:250px">
     <thead>
     <tr>
         <th field="id" width="100">ID</th>
@@ -9,7 +9,7 @@
     </thead>
 </table>
 <div id="toolbar">
-    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createUser()">New User</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeUser()">Remove User</a>
 </div>
@@ -36,9 +36,42 @@
 </div>
 
 <script>
-    function newUser() {
-        $("#dlg").dialog('open').dialog('setTitle','New User');
+    // show dialog to create user
+    function createUser() {
+        $("#dlg").dialog('open').dialog('setTitle', 'New User');
         $("#fm").form('clear');
         url = "/user/create";
+    }
+
+    // show dialog to edit user
+    function editUser() {
+        // get selected user record
+        var row = $('#dg').datagrid('getSelected');
+        if (row) {
+            $("#dlg").dialog('open').dialog('setTitle', 'Edit User');
+            $("#fm").form('load', row);
+            url = '/user/save?id=' + row.id;
+        }
+    }
+
+    function saveUser() {
+        $("#fm").form('submit', {
+            url: url,
+            onSubmit: function () {
+                return $(this).form('validate');
+            },
+            success: function (result) {
+                result = eval('(' + result + ')');
+                if (result.errorMsg) {
+                    $.messager.show({
+                        title: 'Error',
+                        msg: result.errorMsg
+                    })
+                } else {
+                    $("#dlg").dialog('close');
+                    $("#dg").datagrid('reload');
+                }
+            }
+        });
     }
 </script>
