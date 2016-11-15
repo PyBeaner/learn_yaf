@@ -18,7 +18,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
         foreach ($it as $file) {
             if ($file->getExtension() == 'ini') {
                 $config = new Yaf_Config_Ini($file->getRealPath());
-                Yaf_Registry::set('config.' . basename($file->getFilename(),'.ini'), $config);
+                Yaf_Registry::set('config.' . basename($file->getFilename(), '.ini'), $config);
             }
         }
     }
@@ -53,6 +53,8 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
     public function _initRoutes(Yaf_Dispatcher $dispatcher)
     {
         $router = $dispatcher->getRouter();
+//        var_dump($router->getRoutes());
+//        exit();
         // 可以添加自定义的route
 //        $router->addRoute('my_route',$my_route);
         // 也可以通过配置添加
@@ -66,6 +68,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
      */
     public function _initSmarty(Yaf_Dispatcher $dispatcher)
     {
+        return;
         $smarty = new Smarty_Adapter(null, Yaf_Registry::get('config.smarty'));
         $dispatcher->setView($smarty);
     }
