@@ -11,7 +11,7 @@
 <div id="toolbar">
     <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="createUser()">New User</a>
     <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
-    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeUser()">Remove User</a>
+    <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUser()">Remove User</a>
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width:400px;height: 200px;padding: 10px 20px;" closed="true"
@@ -73,5 +73,25 @@
                 }
             }
         });
+    }
+
+    function deleteUser() {
+        var row = $('#dg').datagrid('getSelected');
+        if (row) {
+            $.messager.confirm('Confirm', 'Are you sure you want to destroy this user?', function (r) {
+                if (r) {
+                    $.post('/user/delete', {id: row.id}, function (result) {
+                        if (result.status) {
+                            $('#dg').datagrid('reload');	// reload the user data
+                        } else {
+                            $.messager.show({	// show error message
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        }
+                    }, 'json');
+                }
+            });
+        }
     }
 </script>
