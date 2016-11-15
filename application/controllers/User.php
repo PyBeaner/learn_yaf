@@ -6,7 +6,7 @@ class UserController extends Yaf_Controller_Abstract
 {
     public function indexAction()
     {
-        
+
     }
 
     public function usersAction()
