@@ -4,7 +4,7 @@ class GlobalPlugin extends Yaf_Plugin_Abstract
 {
     public function routerShutdown(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response)
     {
-//        var_dump("Router Started!", $request);
+//        var_dump("Router Shutdown!", $request);
 //        exit();
         // TODO: check if the user is authenticated?
         if(false){

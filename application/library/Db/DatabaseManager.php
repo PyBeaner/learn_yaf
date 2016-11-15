@@ -1,5 +1,7 @@
 <?php
-
+namespace Db;
+use PDO;
+use Yaf_Config_Ini;
 class DatabaseManager
 {
     /** @var  PDO */
