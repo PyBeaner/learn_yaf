@@ -10,9 +10,17 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
     /**
      * 将配置信息加入注册表
      */
-    public function _initConfig() {
+    public function _initConfig()
+    {
         $app_config = Yaf_Application::app()->getConfig();
         Yaf_Registry::set("config.app", $app_config);
+        $it = new DirectoryIterator(APP_PATH . '/conf');
+        foreach ($it as $file) {
+            if ($file->getExtension() == 'ini') {
+                $config = new Yaf_Config_Ini($file->getRealPath());
+                Yaf_Registry::set('config.' . basename($file->getFilename(),'.ini'), $config);
+            }
+        }
     }
 //
 //    public function _initDefaultName(Yaf_Dispatcher $dispatcher) {
@@ -42,16 +50,23 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
      * 初始化路由协议
      * @param Yaf_Dispatcher $dispatcher
      */
-    public function _initRoutes(Yaf_Dispatcher $dispatcher){
+    public function _initRoutes(Yaf_Dispatcher $dispatcher)
+    {
         $router = $dispatcher->getRouter();
         // 可以添加自定义的route
 //        $router->addRoute('my_route',$my_route);
         // 也可以通过配置添加
-        $config = new Yaf_Config_Ini(APP_PATH.'/conf/routes.ini');
+        $config = new Yaf_Config_Ini(APP_PATH . '/conf/routes.ini');
         $router->addConfig($config);
     }
 
-    public function _initSmarty(Yaf_Dispatcher $dispatcher){
-
+    /**
+     * 使用Smarty作为模板引擎
+     * @param Yaf_Dispatcher $dispatcher
+     */
+    public function _initSmarty(Yaf_Dispatcher $dispatcher)
+    {
+        $smarty = new Smarty_Adapter(null, Yaf_Registry::get('config.smarty'));
+        $dispatcher->setView($smarty);
     }
 }
