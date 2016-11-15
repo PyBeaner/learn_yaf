@@ -9,7 +9,6 @@ class DatabaseManager
 
     /**
      * DatabaseManager constructor.
-     * @return PDO
      */
     public function __construct()
     {

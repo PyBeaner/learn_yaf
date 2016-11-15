@@ -6,9 +6,16 @@ class UserController extends Yaf_Controller_Abstract
 {
     public function indexAction()
     {
+
+    }
+
+    public function usersAction()
+    {
+        /** @var PDO $db */
         $db = new DatabaseManager();
-        var_dump($db);
-        exit();
+        $statement = $db->query("select id,username,email from users");
+        $users = $statement->fetchAll();
+        return json_encode($users);
     }
 }
 
