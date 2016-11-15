@@ -51,4 +51,7 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
         $router->addConfig($config);
     }
 
+    public function _initSmarty(Yaf_Dispatcher $dispatcher){
+
+    }
 }
