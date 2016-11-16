@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css">
+    <script type="text/javascript" src="/js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+<div id="dd1" class="dd-demo" style="background-color: green;"></div>
+<div id="dd2" class="dd-demo" style="background-color: yellow;"></div>
+<div id="dd3" class="dd-demo" style="background-color: red;"></div>
+</body>
+<style>
+    .dd-demo {
+        height: 40px;
+        width: 40px;
+        margin: 10px;
+    }
+</style>
+<script>
+    $("#dd1").draggable();
+    $("#dd2").draggable({proxy: 'clone'});
+    $('#dd3').draggable({
+        proxy: function (source) {
+            var p = $('<div>proxy</div>');
+            p.appendTo('body');
+            return p;
+        }
+    });
+</script>
+</html>
