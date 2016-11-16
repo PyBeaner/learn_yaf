@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/js/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css">
+    <script type="text/javascript" src="/js/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+<div class="easyui-layout" style="width: 400px;height: 200px;">
+    <div region="west" title="Navigator" split="true" style="width:150px">
+        <p>Select Language</p>
+        <ul>
+            <li><a href="javascript:void(0)" onclick="showContent('java')">Java</a></li>
+            <li><a href="javascript:void(0)" onclick="showContent('csharp')">C#</a></li>
+            <li><a href="javascript:void(0)" onclick="showContent('php')">PHP</a></li>
+            <li><a href="javascript:void(0)" onclick="showContent('python')">Python</a></li>
+        </ul>
+    </div>
+    <div id="content" region="center" title="language" style="padding:5px"></div>
+</div>
+<script>
+    function showContent(lang) {
+        $("#content").html('Introduction to ' + lang + ' language');
+    }
+</script>
+</body>
+</html>
